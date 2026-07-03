@@ -4,6 +4,7 @@ import {
   MainMenu,
   serializeAsJSON,
   loadFromBlob,
+  useHandleLibrary,
 } from "@excalidraw/excalidraw";
 
 // Boards autosave to this browser's localStorage, so they persist between
@@ -28,6 +29,10 @@ export default function App() {
   const [api, setApi] = useState(null);
   const saveTimer = useRef();
   const fileInput = useRef();
+
+  // Enables installing shapes from libraries.excalidraw.com ("Add to Excalidraw"
+  // deep-link) and persists the user's library across sessions.
+  useHandleLibrary({ excalidrawAPI: api });
 
   const onChange = useCallback((elements, appState) => {
     clearTimeout(saveTimer.current);
